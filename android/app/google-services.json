@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "90131332060",
+    "project_id": "gorevyapkazanapp",
+    "storage_bucket": "gorevyapkazanapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90131332060:android:b1d7b933b499a7e8a46d19",
+        "android_client_info": {
+          "package_name": "com.example.gorev_yap_kazan_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90131332060-f4cumhu3gj4b5e15r9gfs1ibjelnnbe8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gorev_yap_kazan_flutter",
+            "certificate_hash": "d076df83fd38ebc983adb6737f4e1abdfe8c55e2"
+          }
+        },
+        {
+          "client_id": "90131332060-imt0e327mtoiuagl22k8lu3k5t9opu1a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1EwPqUMdi9sMCUayz6G2Lr608h610KsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90131332060-imt0e327mtoiuagl22k8lu3k5t9opu1a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "90131332060-j6hn2o0og11q2m2sb87bqrdv5g2tggfh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gorevYapKazanFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
