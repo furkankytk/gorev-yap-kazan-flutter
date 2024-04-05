@@ -31,6 +31,7 @@ class GorevDetayPage extends StatefulWidget {
 
 class _GorevDetayPageState extends State<GorevDetayPage> {
   File? file;
+  String? downloadURL;
   String? imagename;
   String gorevTalimat = "";
   @override
@@ -66,6 +67,22 @@ class _GorevDetayPageState extends State<GorevDetayPage> {
 
     final downloadURL = await storageRef.getDownloadURL();
     print("DOWNLOAD URL: $downloadURL");
+    FirebaseFirestore.instance.collection('TasksDone').doc(uuidString).set({
+      "gorevId": widget.gorevId,
+      "gorevAciklama": widget.gorevAciklama,
+      "gorevBaslik": widget.gorevBaslik,
+      "gorevFiyat": widget.gorevFiyat,
+      "gorevKategori": widget.gorevKategori,
+      "gorevSayi": widget.gorevSayi,
+      "kullaniciId": widget.kullaniciId,
+      "kanit": downloadURL,
+      "tasksDoneId": uuidString
+      // 29.03.2024 firestore bitmiyor. İnternetten kaynaklı olabilir. Çünkü file null gelse bile null diye kaydedecek
+      // ekran görüntüsünü de gönder
+    });
+    print("Görev ID: ${widget.gorevId}");
+    await SayiUpdate().updateCoin(taskId: widget.gorevId);
+
     return downloadURL;
   }
 
@@ -204,21 +221,7 @@ class _GorevDetayPageState extends State<GorevDetayPage> {
                       final uuid = Uuid();
                       final uuidString = uuid.v4();
                       await uploadFile(file!, uuidString);
-                      FirebaseFirestore.instance
-                          .collection('TasksDone')
-                          .doc()
-                          .set({
-                        "gorevId": widget.gorevId,
-                        "gorevAciklama": widget.gorevAciklama,
-                        "gorevBaslik": widget.gorevBaslik,
-                        "gorevFiyat": widget.gorevFiyat,
-                        "gorevKategori": widget.gorevKategori,
-                        "gorevSayi": widget.gorevSayi,
-                        "kullaniciId": widget.kullaniciId,
-                        "kanit": uuidString
-                        // 29.03.2024 firestore bitmiyor. İnternetten kaynaklı olabilir. Çünkü file null gelse bile null diye kaydedecek
-                        // ekran görüntüsünü de gönder
-                      });
+
                       // görevi göremez hale getir ve görevler sayfasına gönder
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: RichText(
@@ -298,4 +301,20 @@ Widget bilgiSatir(
       ],
     ),
   );
+}
+
+class SayiUpdate {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  int? yeniGorevSayiDegeri;
+
+  Future<void> updateCoin({required String taskId}) async {
+    final docRef = _firestore.collection('Tasks').doc(taskId);
+    await _firestore.runTransaction((transaction) async {
+      final documentSnapshot = await transaction.get(docRef);
+      var gorevSayiDegeri = documentSnapshot.data()!['sayı'] as int;
+
+      yeniGorevSayiDegeri = gorevSayiDegeri - 1;
+      transaction.update(docRef, {'sayı': yeniGorevSayiDegeri});
+    });
+  }
 }

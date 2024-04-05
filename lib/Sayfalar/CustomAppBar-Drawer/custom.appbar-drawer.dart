@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gorev_yap_kazan_flutter/Admin/adminpage.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/AwesomeDialogs/awesomeDialogs.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomSnakeBar/customsnakebar.dart';
@@ -59,7 +60,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             child: Row(children: [
               Image.asset("assets/coin.png", width: 20),
               const SizedBox(width: 3),
-              Text("${userProvider.userSnapshot?.data()?["coin"] ?? ""}"),
+              Text("${userProvider.userSnapshot?.data()?["coin"] ?? "Yükleniyor"}"),
             ]),
           ),
         )
@@ -122,7 +123,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ),
           ListTile(
             title: const Text("Destek"),
-            leading: const Icon(Icons.info_outline),
+            leading: const Icon(Icons.help_outline),
             onTap: () {},
           ),
           ListTile(
@@ -143,6 +144,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
             onTap: () {
               Provider.of<UpdateUser>(context, listen: false)
                   .updateCoin(FirebaseAuth.instance.currentUser!.uid, 999);
+            },
+          ),
+          ListTile(
+            title: const Text("Admin Panel"),
+            leading: const Icon(Icons.admin_panel_settings),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const AdminPage()));
             },
           ),
         ],

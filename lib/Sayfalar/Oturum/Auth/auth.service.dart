@@ -125,15 +125,3 @@ class UpdateUser extends ChangeNotifier {
 }
 
 //////////////////////////////////////////
-
-class ClassName {
-  void main () {
-  FirebaseFirestore.instance.collection('Tasks').add({
-            'açıklama': "merhaba",
-            'başlık': "merhaba",
-            'fiyat': "10",
-            'kategori': "tiktok",
-            'sayi': "100",
-          });
-  }
-}

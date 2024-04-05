@@ -28,5 +28,5 @@ alt_yazi(BuildContext context, String mesaj, {int tur = 0}) {
 // }
 
 class ButonSabitler {
-  EdgeInsets PaddingSabit = EdgeInsets.only(top: 10, bottom: 10);
+  EdgeInsets paddingSabit = const EdgeInsets.only(top: 10, bottom: 10);
 }

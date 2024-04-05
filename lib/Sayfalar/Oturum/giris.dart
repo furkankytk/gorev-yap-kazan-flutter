@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/anasayfa.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/Oturum/Auth/auth.service.dart';
+import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevler.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,6 +14,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var isAdmin = false;
+
+  checkIsAdmin() async {
+    print("admin kontrolü yapılıyor");
+      if (FirebaseAuth.instance.currentUser?.uid == "Ao5adB5INhZJAZu1zsBTYsigEIb2") {
+      setState(() {
+        isAdmin = true;
+        });
+      print('Admin');
+      } else {
+        setState(() {
+        isAdmin = false;
+        });
+        print('Admin Değil');
+        }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -46,7 +65,13 @@ class _LoginPageState extends State<LoginPage> {
               GestureDetector(
                     onTap: () async {
                       bool result = await AuthService().signInWithGoogle();
-                      if (result) {
+                      print("result: $result");
+                      await checkIsAdmin();
+                      if (isAdmin == true) {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const GorevlerPage()));
+                      } else if (result) {
+                        print("result var");
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => const AnaSayfa()));
                       }
@@ -63,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                           ]),
                       margin: const EdgeInsets.only(
                           bottom: 10, top: 20, left: 30, right: 30),
-                      padding: ButonSabitler().PaddingSabit,
+                      padding: ButonSabitler().paddingSabit,
                       child: const Center(
                           child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
