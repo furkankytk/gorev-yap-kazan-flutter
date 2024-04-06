@@ -17,6 +17,7 @@ class _GorevlerPageState extends State<GorevlerPage> {
   Widget build(BuildContext context) {
     CollectionReference tasksref =
         FirebaseFirestore.instance.collection("Tasks");
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: arka_plan_renk,
@@ -28,32 +29,31 @@ class _GorevlerPageState extends State<GorevlerPage> {
               height: 100,
               margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
               decoration: BoxDecoration(
-                  color: bilgi_karti_renk,
+                  color: kirmizi_renk2,
                   borderRadius: BorderRadius.circular(30)),
               width: MediaQuery.of(context).size.width,
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("UYARI",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            shadows: [
-                              Shadow(
-                                  color: Colors.black,
-                                  offset: Offset(1.0, 2.0),
-                                  blurRadius: 5.0)
-                            ])),
-                    Text(
-                        "Eksik veya yanlış yapılan görevlerin ödemesi yapılmaz!",
-                        style: TextStyle(shadows: [
-                          Shadow(
-                              color: Colors.black,
-                              offset: Offset(1.0, 2.0),
-                              blurRadius: 5.0)
-                        ])),
+                    Image.asset("assets/warning.png"),
+                    const SizedBox(width: 5),
+                    const Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("UYARI",
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                )),
+                        Text(
+                            "Eksik veya yanlış yapılan görevlerin \nödemesi yapılmaz!",
+                            ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -78,6 +78,8 @@ class _GorevlerPageState extends State<GorevlerPage> {
                         return ListView.builder(
                           itemCount: snapshot.data?.docs.length,
                           itemBuilder: (context, index) {
+                            // if () {}
+
                             return InkWell(
                               onTap: () {
                                 final kullaniciId =
@@ -184,5 +186,22 @@ class _GorevlerPageState extends State<GorevlerPage> {
         ),
       ),
     );
+  }
+}
+
+class IsDoneControl {
+  Future<bool> isDoneControl(String gorevId) async {
+    final doc =
+        await FirebaseFirestore.instance.collection('Tasks').doc(gorevId).get();
+
+    // "Tamamlayanlar" değerini al
+    final tamamlayanlar = doc.data()?['Tamamlayanlar'];
+
+    // Kullanıcının UID'si "Tamamlayanlar" listesindeyse ekrana "Merhaba" yazdır
+    if (tamamlayanlar.contains(FirebaseAuth.instance.currentUser?.uid)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
