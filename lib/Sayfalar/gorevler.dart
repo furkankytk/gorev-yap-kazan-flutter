@@ -29,7 +29,7 @@ class _GorevlerPageState extends State<GorevlerPage> {
               height: 100,
               margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
               decoration: BoxDecoration(
-                  color: kirmizi_renk2,
+                  color: bilgi_karti_renk2,
                   borderRadius: BorderRadius.circular(30)),
               width: MediaQuery.of(context).size.width,
               child: Padding(

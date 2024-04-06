@@ -5,7 +5,7 @@ Color arka_plan_renk = const Color.fromARGB(255, 62, 64, 80);
 Color arka_plan_renk_coin = const Color.fromARGB(10, 0, 0, 0);
 Color bilgi_karti_renk = Color.fromARGB(255, 249, 70, 89);
 Color kirmizi_renk = Color(0xFFCA0E1D);
-Color kirmizi_renk2 = Color.fromARGB(255, 223, 22, 39);
+Color bilgi_karti_renk2 = Color.fromARGB(255, 231, 39, 58);
 
 
 alt_yazi(BuildContext context, String mesaj, {int tur = 0}) {
