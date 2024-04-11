@@ -16,7 +16,7 @@ class _GorevlerPageState extends State<GorevlerPage> {
   @override
   Widget build(BuildContext context) {
     CollectionReference tasksref =
-        FirebaseFirestore.instance.collection("Tasks").where("yapanlar", arrayContainsAny: [526]).get();
+        FirebaseFirestore.instance.collection("Tasks");
 
     return SafeArea(
       child: Scaffold(
@@ -184,16 +184,5 @@ class _GorevlerPageState extends State<GorevlerPage> {
         ),
       ),
     );
-  }
-}
-
-Future<void> kullanicilariListele() async {
-  CollectionReference users = FirebaseFirestore.instance.collection("Tasks");
-  QuerySnapshot querySnapshot = await users.where("yapanlar", arrayContainsAny: [526]).get();
-
-  // Sorgu sonuçlarını işle (belgelere ve verilere eriş)
-  for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-    Map<String, dynamic> kullaniciVerisi = doc.data() as Map<String, dynamic>;
-    // ... kullanici verisini kullanmak için mantığınız
   }
 }
