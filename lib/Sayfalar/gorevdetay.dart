@@ -221,7 +221,6 @@ class _GorevDetayPageState extends State<GorevDetayPage> {
                       final uuid = Uuid();
                       final uuidString = uuid.v4();
                       await uploadFile(file!, uuidString);
-
                       // görevi göremez hale getir ve görevler sayfasına gönder
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: RichText(
