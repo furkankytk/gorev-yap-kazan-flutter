@@ -15,9 +15,6 @@ class GorevlerPage extends StatefulWidget {
 class _GorevlerPageState extends State<GorevlerPage> {
   @override
   Widget build(BuildContext context) {
-    CollectionReference tasksref =
-        FirebaseFirestore.instance.collection("Tasks");
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: arka_plan_renk,
@@ -46,12 +43,12 @@ class _GorevlerPageState extends State<GorevlerPage> {
                       children: [
                         Text("UYARI",
                             style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                )),
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            )),
                         Text(
-                            "Eksik veya yanlış yapılan görevlerin \nödemesi yapılmaz!",
-                            ),
+                          "Eksik veya yanlış yapılan görevlerin \nödemesi yapılmaz!",
+                        ),
                       ],
                     ),
                   ],
@@ -67,115 +64,127 @@ class _GorevlerPageState extends State<GorevlerPage> {
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
                     )),
-                child: FutureBuilder(
-                    future: tasksref.get(),
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('Tasks')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
-                        return const Text("Hata");
+                        return const Text("Hata",
+                            style: TextStyle(color: Colors.black));
                       } else {
                         return ListView.builder(
-                          itemCount: snapshot.data?.docs.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                final kullaniciId =
-                                    FirebaseAuth.instance.currentUser?.uid;
-                                final gorevId = snapshot.data?.docs[index].id;
-                                final String gorevBaslik =
-                                    snapshot.data?.docs[index]["başlık"];
-                                final String gorevAciklama =
-                                    snapshot.data?.docs[index]["açıklama"];
-                                final int gorevFiyat =
-                                    snapshot.data?.docs[index]["fiyat"];
-                                final String gorevKategori =
-                                    snapshot.data?.docs[index]["kategori"];
-                                final int gorevSayi =
-                                    snapshot.data?.docs[index]["sayı"];
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => GorevDetayPage(
-                                        gorevId: gorevId,
-                                        gorevAciklama: gorevAciklama,
-                                        gorevBaslik: gorevBaslik,
-                                        gorevFiyat: gorevFiyat,
-                                        gorevKategori: gorevKategori,
-                                        gorevSayi: gorevSayi,
-                                        kullaniciId: kullaniciId),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                  padding: const EdgeInsets.all(10),
-                                  margin: const EdgeInsets.only(
-                                      left: 5, right: 5, top: 5),
-                                  decoration: BoxDecoration(
-                                    color: arka_plan_renk,
-                                    border: Border.all(
-                                        color: arka_plan_renk, width: 2),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/${snapshot.data!.docs[index]["kategori"]}.png"),
-                                            fit: BoxFit.fill,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              final gorev = snapshot.data!.docs[index];
+                              final yapanlar =
+                                  gorev['yapanlar'] as List<dynamic>;
+                              if (!yapanlar.contains(
+                                  FirebaseAuth.instance.currentUser?.uid)) {
+                                return InkWell(
+                                  onTap: () {
+                                    final kullaniciId =
+                                        FirebaseAuth.instance.currentUser?.uid;
+                                    final gorevId =
+                                        snapshot.data!.docs[index].id;
+                                    final String gorevBaslik =
+                                        snapshot.data!.docs[index]["başlık"];
+                                    final String gorevAciklama =
+                                        snapshot.data!.docs[index]["açıklama"];
+                                    final int gorevFiyat =
+                                        snapshot.data!.docs[index]["fiyat"];
+                                    final String gorevKategori =
+                                        snapshot.data!.docs[index]["kategori"];
+                                    final int gorevSayi =
+                                        snapshot.data!.docs[index]["sayı"];
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => GorevDetayPage(
+                                            gorevId: gorevId,
+                                            gorevAciklama: gorevAciklama,
+                                            gorevBaslik: gorevBaslik,
+                                            gorevFiyat: gorevFiyat,
+                                            gorevKategori: gorevKategori,
+                                            gorevSayi: gorevSayi,
+                                            kullaniciId: kullaniciId),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(10),
+                                    margin: const EdgeInsets.only(
+                                        left: 5, right: 5, top: 5),
+                                    decoration: BoxDecoration(
+                                      color: arka_plan_renk,
+                                      border: Border.all(
+                                          color: arka_plan_renk, width: 2),
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/${snapshot.data!.docs[index]["kategori"]}.png"),
+                                              fit: BoxFit.fill,
+                                            ),
+                                            color: arka_plan_renk,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
                                           ),
-                                          color: arka_plan_renk,
-                                          borderRadius:
-                                              BorderRadius.circular(100),
+                                          padding: const EdgeInsets.all(10),
+                                          width: 50,
+                                          height: 50,
                                         ),
-                                        padding: const EdgeInsets.all(10),
-                                        width: 50,
-                                        height: 50,
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
+                                        const SizedBox(width: 10),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
                                               "${snapshot.data!.docs[index]["başlık"]}",
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15,
-                                              )),
-                                          Row(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Image.asset("assets/coin.png",
-                                                      width: 20),
-                                                  const SizedBox(width: 2),
-                                                  Text(
-                                                      "${snapshot.data!.docs[index]["fiyat"]}"),
-                                                ],
                                               ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerRight,
-                                          child: IconButton(
+                                            ),
+                                            Row(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Image.asset(
+                                                        "assets/coin.png",
+                                                        width: 20),
+                                                    const SizedBox(width: 2),
+                                                    Text(
+                                                        "${snapshot.data!.docs[index]["fiyat"]}"),
+                                                  ],
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.centerRight,
+                                            child: IconButton(
                                               onPressed: () {},
                                               icon: const Icon(
-                                                  Icons.chevron_right)),
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            );
-                          },
-                        );
+                                                  Icons.chevron_right),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }
+                              return const SizedBox();
+                            });
                       }
                     }),
               ),

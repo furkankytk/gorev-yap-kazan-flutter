@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
+import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -82,6 +84,7 @@ class _GorevDetayPageState extends State<GorevDetayPage> {
     });
     print("Görev ID: ${widget.gorevId}");
     await SayiUpdate().updateCoin(taskId: widget.gorevId);
+    await YapanlarEkleme().updateYapanlar(taskId: widget.gorevId);
 
     return downloadURL;
   }
@@ -221,7 +224,8 @@ class _GorevDetayPageState extends State<GorevDetayPage> {
                       final uuid = Uuid();
                       final uuidString = uuid.v4();
                       await uploadFile(file!, uuidString);
-                      // görevi göremez hale getir ve görevler sayfasına gönder
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const GorevlerPage()));
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: RichText(
                               text: const TextSpan(
@@ -237,9 +241,9 @@ class _GorevDetayPageState extends State<GorevDetayPage> {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text(
-                              "Görevi tamamlamak için kanıt eklemeniz gerekmektedir.")));
+                              "Görevi tamamlamak için kanıt eklemeniz gerekmektedir."),
+                          backgroundColor: Colors.red));
                     }
-                    Navigator.of(context).pop();
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
@@ -314,6 +318,21 @@ class SayiUpdate {
 
       yeniGorevSayiDegeri = gorevSayiDegeri - 1;
       transaction.update(docRef, {'sayı': yeniGorevSayiDegeri});
+    });
+  }
+}
+
+class YapanlarEkleme {
+  Future<void> updateYapanlar({required String taskId}) async {
+// 'yapanlar' array'i içeren belge referansı
+    DocumentReference documentReference =
+        FirebaseFirestore.instance.collection('Tasks').doc(taskId);
+
+// Eklemek istediğiniz yapıcıyı oluşturun
+// Array'e yeni yapıcıyı ekleme
+    await documentReference.update({
+      'yapanlar':
+          FieldValue.arrayUnion([FirebaseAuth.instance.currentUser?.uid])
     });
   }
 }
