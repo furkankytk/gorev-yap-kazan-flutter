@@ -81,8 +81,10 @@ class _GorevlerPageState extends State<GorevlerPage> {
                               final gorev = snapshot.data!.docs[index];
                               final yapanlar =
                                   gorev['yapanlar'] as List<dynamic>;
+
                               if (!yapanlar.contains(
-                                  FirebaseAuth.instance.currentUser?.uid)) {
+                                      FirebaseAuth.instance.currentUser?.uid) &&
+                                  gorev["sayı"] > 0) {
                                 return InkWell(
                                   onTap: () {
                                     final kullaniciId =
