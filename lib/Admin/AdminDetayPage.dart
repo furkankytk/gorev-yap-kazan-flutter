@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gorev_yap_kazan_flutter/Admin/AdminPage.dart';
@@ -65,13 +66,14 @@ class _AdminDetayPageState extends State<AdminDetayPage> {
                           ElevatedButton(
                               onPressed: () {
                                 SayiUpdate().updateCoin(taskId: widget.gorevId);
+                                YapanlarSilme().silYapanlarGorevi(taskId: widget.gorevId);
                                 DeleteFirestoreData().delete(
                                     tasksDoneDoc: widget.tasksDoneId,
                                     storageDataUrl: widget.kanit);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => AdminPage()));
+                                        builder: (context) => const AdminPage()));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text("Reddedildi.")));
@@ -92,8 +94,8 @@ class _AdminDetayPageState extends State<AdminDetayPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => AdminPage()));
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        builder: (context) => const AdminPage()));
+                                ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text("Onaylandı.")));
                               },
@@ -141,4 +143,24 @@ class SayiUpdate {
       transaction.update(docRef, {'sayı': yeniGorevSayiDegeri});
     });
   }
+}
+
+
+// Test edilmedi
+class YapanlarSilme {
+  Future<void> silYapanlarGorevi({required String taskId}) async {
+  // Firestore instance'ı al
+  final firestore = FirebaseFirestore.instance;
+
+  // "tasks" dökümantasyonuna referans al
+  final docRef = firestore.collection('tasks').doc(taskId);
+
+  // Güncellenecek alanları içeren bir harita oluştur
+  final updates = <String, dynamic>{
+    'yapanlar': FieldValue.arrayRemove([FirebaseAuth.instance.currentUser?.uid]),
+  };
+
+  // Dökümantasyonu güncelle
+  await docRef.update(updates);
+}
 }

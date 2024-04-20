@@ -68,7 +68,6 @@ class _GorevDetayPageState extends State<GorevDetayPage> {
     await storageRef.putFile(file);
 
     final downloadURL = await storageRef.getDownloadURL();
-    print("DOWNLOAD URL: $downloadURL");
     FirebaseFirestore.instance.collection('TasksDone').doc(uuidString).set({
       "gorevId": widget.gorevId,
       "gorevAciklama": widget.gorevAciklama,
@@ -82,7 +81,6 @@ class _GorevDetayPageState extends State<GorevDetayPage> {
       // 29.03.2024 firestore bitmiyor. İnternetten kaynaklı olabilir. Çünkü file null gelse bile null diye kaydedecek
       // ekran görüntüsünü de gönder
     });
-    print("Görev ID: ${widget.gorevId}");
     await SayiUpdate().updateCoin(taskId: widget.gorevId);
     await YapanlarEkleme().updateYapanlar(taskId: widget.gorevId);
 

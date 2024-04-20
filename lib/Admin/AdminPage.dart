@@ -19,6 +19,10 @@ class _AdminPageState extends State<AdminPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text("Görev Kanıtları"),
+        ),
         body: Column(
           children: [
             Expanded(

@@ -61,9 +61,10 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         image: "assets/task.png",
                         text: "Görev Yap Kazan",
                         footer: "Minik bir görev tamamla ve anında kazan",
-                        onTap: () {Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const GorevlerPage()));}
-                        ),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const GorevlerPage()));
+                        }),
                     anaSayfaSutunlar(
                         image: "assets/game.png",
                         text: "Oyun Oyna Kazan",
@@ -72,7 +73,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     anaSayfaSutunlar(
                         image: "assets/browser.png",
                         text: "Web'te Kazan",
-                        footer: "Tarayıcıda istersen video izle istersen de haber oku. Sınırsız kazanç",
+                        footer:
+                            "Tarayıcıda istersen video izle istersen de haber oku. Sınırsız kazanç",
                         onTap: () {}),
                     anaSayfaSutunlar(
                         image: "assets/giveaway.png",
@@ -89,7 +91,11 @@ class _AnaSayfaState extends State<AnaSayfa> {
     );
   }
 
-  InkWell anaSayfaSutunlar({required image, required text, required footer, required Function() onTap}) {
+  InkWell anaSayfaSutunlar(
+      {required image,
+      required text,
+      required footer,
+      required Function() onTap}) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -114,13 +120,11 @@ class _AnaSayfaState extends State<AnaSayfa> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(text,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
                 SizedBox(
                     width: 280,
-                    child: Text(footer,
-                        maxLines: 2,
-                        overflow: TextOverflow.clip)),
+                    child:
+                        Text(footer, maxLines: 2, overflow: TextOverflow.clip)),
               ],
             ),
           ],

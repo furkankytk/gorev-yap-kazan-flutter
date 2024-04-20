@@ -1,11 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gorev_yap_kazan_flutter/Admin/adminpage.dart';
+import 'package:gorev_yap_kazan_flutter/Admin/adminportal.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/AwesomeDialogs/awesomeDialogs.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomSnakeBar/customsnakebar.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/Oturum/Auth/auth.service.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/anasayfa.dart';
+import 'package:gorev_yap_kazan_flutter/Sayfalar/notification.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -20,9 +22,42 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
+  bool isThereNotification = false;
   @override
   void initState() {
     super.initState();
+
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      List<dynamic> data = documentSnapshot["Notifications"] as List<dynamic>;
+      if (data.isEmpty) {
+        isThereNotification = false;
+      } else {
+        isThereNotification = true;
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.notifications_active_outlined, weight: 30),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "Aktif bildiriminiz var. Sağ üsttteki bildirim iconundan mesajınıza erişebilirsiniz.",
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            ],
+          ),
+          backgroundColor: Colors.red,
+        ));
+      }
+
+      setState(() {
+        isThereNotification;
+      });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final UserProvider userProvider = Provider.of(context, listen: false);
@@ -35,10 +70,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
     return AppBar(
+      titleSpacing: 0.0,
       backgroundColor: Colors.transparent,
-        elevation: 0,
-      title: const Text("Görevle Kazan"),
-      centerTitle: true,
+      elevation: 0,
+      title: const Text("Her Şeyle Kazan"),
       leading: IconButton(
           onPressed: () {
             Scaffold.of(context).openDrawer();
@@ -51,7 +86,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 CustomSnackbar(text: "1000 coin = 1 TL", deger: 1));
           },
           child: Container(
-            margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
@@ -60,10 +94,23 @@ class _CustomAppBarState extends State<CustomAppBar> {
             child: Row(children: [
               Image.asset("assets/coin.png", width: 20),
               const SizedBox(width: 3),
-              Text("${userProvider.userSnapshot?.data()?["coin"] ?? "Yükleniyor"}"),
+              Text(
+                  "${userProvider.userSnapshot?.data()?["coin"] ?? "Yükleniyor"}"),
             ]),
           ),
-        )
+        ),
+        IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const NotificationsPage()));
+            },
+            icon: Icon(
+                isThereNotification == false
+                    ? Icons.notifications_none_outlined
+                    : Icons.notifications_active_outlined,
+                color: isThereNotification == false
+                    ? Colors.white
+                    : Colors.yellow)),
       ],
     );
   }
@@ -151,7 +198,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             leading: const Icon(Icons.admin_panel_settings),
             onTap: () {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const AdminPage()));
+                  MaterialPageRoute(builder: (context) => const AdminPortal()));
             },
           ),
         ],

@@ -6,17 +6,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'Sayfalar/Oturum/giris.dart';
+
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
-runApp(MultiProvider(providers: [
-  ChangeNotifierProvider(create: (context) => UserProvider()),
-  ChangeNotifierProvider(create: (context) => UpdateUser())
-],
-child: const MyOldApp(),
-));
+  );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => UserProvider()),
+      ChangeNotifierProvider(create: (context) => UpdateUser())
+    ],
+    child: const MyOldApp(),
+  ));
 }
 
 class MyOldApp extends StatefulWidget {
@@ -30,23 +32,21 @@ class _MyOldAppState extends State<MyOldApp> {
   var isLogin = false;
 
   checkIfLogin() async {
-    FirebaseAuth.instance
-    .userChanges()
-    .listen((User? user) {
+    FirebaseAuth.instance.userChanges().listen((User? user) {
       if (user == null) {
-      setState(() {
-        isLogin = false;
+        setState(() {
+          isLogin = false;
         });
-      print('Kullanıcının oturumu şuanda kapalı!');
+        print('Kullanıcının oturumu şuanda kapalı!');
       } else {
         setState(() {
-        isLogin = true;
+          isLogin = true;
         });
         print('Kullanıcının oturumu açık!');
-        }
-   });
+      }
+    });
   }
-  
+
   @override
   void initState() {
     checkIfLogin();

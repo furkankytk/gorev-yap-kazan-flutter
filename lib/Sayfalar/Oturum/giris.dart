@@ -17,17 +17,14 @@ class _LoginPageState extends State<LoginPage> {
   var isAdmin = false;
 
   checkIsAdmin() async {
-    print("admin kontrolü yapılıyor");
       if (FirebaseAuth.instance.currentUser?.uid == "Ao5adB5INhZJAZu1zsBTYsigEIb2") {
       setState(() {
         isAdmin = true;
         });
-      print('Admin');
       } else {
         setState(() {
         isAdmin = false;
         });
-        print('Admin Değil');
         }
   }
 
@@ -66,13 +63,12 @@ class _LoginPageState extends State<LoginPage> {
                 GestureDetector(
                       onTap: () async {
                         bool result = await AuthService().signInWithGoogle();
-                        print("result: $result");
                         await checkIsAdmin();
                         if (isAdmin == true) {
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            // GorevlerPage yerine AdminPortal olacak
                               builder: (context) => const GorevlerPage()));
                         } else if (result) {
-                          print("result var");
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
                               builder: (context) => const AnaSayfa()));
                         }
