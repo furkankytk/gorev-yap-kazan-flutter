@@ -18,7 +18,7 @@ class _GorevlerPageState extends State<GorevlerPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: arka_plan_renk,
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(appbartitle: "Görevler"),
         drawer: const CustomDrawer(),
         body: Column(
           children: [

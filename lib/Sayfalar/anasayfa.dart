@@ -20,7 +20,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: arka_plan_renk,
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(appbartitle: "Her Şeyle Kazan"),
         drawer: const CustomDrawer(),
         body: Column(
           children: [

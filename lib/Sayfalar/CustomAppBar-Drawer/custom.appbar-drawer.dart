@@ -8,11 +8,14 @@ import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomSnakeBar/customsnakebar.d
 import 'package:gorev_yap_kazan_flutter/Sayfalar/Oturum/Auth/auth.service.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/anasayfa.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/notification.dart';
+import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevyayinla.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key})
+  const CustomAppBar({super.key, required this.appbartitle})
       : preferredSize = const Size.fromHeight(kToolbarHeight);
+        final String appbartitle;
+
 
   @override
   final Size preferredSize; // default is 56.0
@@ -73,7 +76,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       titleSpacing: 0.0,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      title: const Text("Her Şeyle Kazan"),
+      title: Text(widget.appbartitle),
       leading: IconButton(
           onPressed: () {
             Scaffold.of(context).openDrawer();
@@ -166,7 +169,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ListTile(
             title: const Text("Görev Yayınla"),
             leading: const Icon(Icons.task_alt),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const GorevYayinlaPage()));
+            },
           ),
           ListTile(
             title: const Text("Destek"),
@@ -174,8 +180,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
             onTap: () {},
           ),
           ListTile(
-            title: const Text("Hata Bildir"),
-            leading: const Icon(Icons.chat_bubble_outline_rounded),
+            title: const Text("Coin Yükle"),
+            leading: const Icon(Icons.shopping_bag_outlined),
             onTap: () {},
           ),
           ListTile(
