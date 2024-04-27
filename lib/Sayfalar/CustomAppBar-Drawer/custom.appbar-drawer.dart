@@ -7,8 +7,12 @@ import 'package:gorev_yap_kazan_flutter/Sayfalar/AwesomeDialogs/awesomeDialogs.d
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomSnakeBar/customsnakebar.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/Oturum/Auth/auth.service.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/anasayfa.dart';
+import 'package:gorev_yap_kazan_flutter/Sayfalar/coinyukle.dart';
+import 'package:gorev_yap_kazan_flutter/Sayfalar/destek.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/notification.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevyayinla.dart';
+import 'package:gorev_yap_kazan_flutter/Sayfalar/odemetalebi.dart';
+import 'package:gorev_yap_kazan_flutter/Sayfalar/sikcasorulansorular.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -53,7 +57,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               )
             ],
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: Color.fromARGB(255, 210, 126, 0),
         ));
       }
 
@@ -164,7 +168,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ListTile(
             title: const Text("Ödeme Talebi"),
             leading: const Icon(Icons.payment),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const OdemeTalebiPage()));
+            },
           ),
           ListTile(
             title: const Text("Görev Yayınla"),
@@ -176,27 +183,33 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ),
           ListTile(
             title: const Text("Destek"),
+            leading: const Icon(Icons.support_agent_outlined),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DestekPage()));
+            },
+          ),
+          ListTile(
+            title: const Text("Sıkça Sorulan Sorular"),
             leading: const Icon(Icons.help_outline),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SikcaSorulanSorularPage()));
+            },
           ),
           ListTile(
             title: const Text("Coin Yükle"),
             leading: const Icon(Icons.shopping_bag_outlined),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const CoinYuklePage()));
+            },
           ),
           ListTile(
             title: const Text("Çıkış Yap"),
             leading: const Icon(Icons.logout_outlined),
             onTap: () {
               cikisYapButon(context);
-            },
-          ),
-          ListTile(
-            title: const Text("+999 Coin"),
-            leading: const Icon(Icons.attach_money_outlined),
-            onTap: () {
-              Provider.of<UpdateUser>(context, listen: false)
-                  .updateCoin(FirebaseAuth.instance.currentUser!.uid, 999);
             },
           ),
           ListTile(

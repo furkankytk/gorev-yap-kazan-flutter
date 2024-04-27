@@ -5,26 +5,24 @@ import 'package:flutter/services.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomAppBar-Drawer/custom.appbar-drawer.dart';
 
-class GorevYayinlaPage extends StatefulWidget {
-  const GorevYayinlaPage({super.key});
+class OdemeTalebiPage extends StatefulWidget {
+  const OdemeTalebiPage({super.key});
 
   @override
-  State<GorevYayinlaPage> createState() => _GorevYayinlaPageState();
+  State<OdemeTalebiPage> createState() => _OdemeTalebiPageState();
 }
 
-class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
-  String? baslik;
-  String? aciklama;
-  String dropdownValue = "Youtube";
-  int? fiyat;
-  int? sayi;
+class _OdemeTalebiPageState extends State<OdemeTalebiPage> {
+  String? hesapbilgisi;
+  String dropdownValue = "Papara Numaranızı Girin";
+  int? coindegeri;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: arka_plan_renk,
-        appBar: const CustomAppBar(appbartitle: "Görev Yayınla"),
+        appBar: const CustomAppBar(appbartitle: "Ödeme Talebi"),
         drawer: const CustomDrawer(),
         body: Column(
           children: [
@@ -32,7 +30,7 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
               height: 100,
               margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
               decoration: BoxDecoration(
-                  color: Colors.orange.shade700,
+                  color: Colors.blue.shade600,
                   borderRadius: BorderRadius.circular(30)),
               width: MediaQuery.of(context).size.width,
               child: Padding(
@@ -41,32 +39,24 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset("assets/information.png"),
+                    Image.asset("assets/payment.png"),
                     const SizedBox(width: 5),
-                    Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("BİLGİLENDİRME",
+                        Text("EMEĞİNİZ GÜVENDE",
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
                             )),
-                        RichText(
-                          text: const TextSpan(
+                        Expanded(
+                          child: Text(
+                            "İşlemi onayladığınızda bakiyeniz ve\nbilgileriniz güvenli bir şekilde kaydedilir.",
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Colors.white,
                             ),
-                            children: <TextSpan>[
-                              TextSpan(text: 'Yeterli coin yoksa '),
-                              TextSpan(
-                                  text: 'Coin Yükle',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)),
-                              TextSpan(
-                                  text: ' sayfasından \nsatın alabilirsiniz.'),
-                            ],
                           ),
                         ),
                       ],
@@ -91,34 +81,6 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                               const EdgeInsets.only(left: 5, right: 5, top: 5),
                           child: Column(
                             children: [
-                              TextField(
-                                onChanged: (value) {
-                                  baslik = value;
-                                },
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'[A-Za-z0-9-\s]')),
-                                ],
-                                keyboardType: TextInputType.text,
-                                maxLength: 35,
-                                decoration: customInputDecoration(
-                                    labelText: "Başlık",
-                                    hintText: "Örnek: Video izle ve like At"),
-                              ),
-                              const SizedBox(height: 5),
-                              TextField(
-                                onChanged: (value) {
-                                  aciklama = value;
-                                },
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 10,
-                                maxLength: 300,
-                                decoration: customInputDecoration(
-                                    labelText: "Görevi Açıklayın",
-                                    hintText:
-                                        "Örnek: \n1- Youtube/Dexpery Beta kanalına git \n2- Son videoya tıkla \n3- Videoya like at ve ekran görüntüsü al"),
-                              ),
-                              const SizedBox(height: 5),
                               Container(
                                 width: MediaQuery.of(context).size.width,
                                 height: 56.0,
@@ -133,7 +95,7 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text("Kategori Seç",
+                                      const Text("Ödeme Yöntemi Seç",
                                           style: TextStyle(fontSize: 16)),
                                       DropdownButton<String>(
                                         dropdownColor: Colors.black,
@@ -147,32 +109,12 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                                         },
                                         items: const [
                                           DropdownMenuItem<String>(
-                                            value: "Youtube",
-                                            child: Text("Youtube"),
+                                            value: "Papara Numaranızı Girin",
+                                            child: Text("Papara"),
                                           ),
                                           DropdownMenuItem<String>(
-                                            value: "İnstagram",
-                                            child: Text("İnstagram"),
-                                          ),
-                                          DropdownMenuItem<String>(
-                                            value: "Tiktok",
-                                            child: Text("Tiktok"),
-                                          ),
-                                          DropdownMenuItem<String>(
-                                            value: "X-Twitter",
-                                            child: Text("X (Twitter)"),
-                                          ),
-                                          DropdownMenuItem<String>(
-                                            value: "PlayStore",
-                                            child: Text("Play Store"),
-                                          ),
-                                          DropdownMenuItem<String>(
-                                            value: "Google",
-                                            child: Text("Google Chrome"),
-                                          ),
-                                          DropdownMenuItem<String>(
-                                            value: "Diğer",
-                                            child: Text("Diğer"),
+                                            value: "IBAN Numaranızı Girin",
+                                            child: Text("Banka"),
                                           ),
                                         ],
                                       ),
@@ -183,24 +125,22 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                               const SizedBox(height: 12),
                               TextField(
                                 onChanged: (value) {
-                                  try {
-                                    fiyat = int.parse(value);
-                                  } catch (e) {}
+                                  hesapbilgisi = value;
                                 },
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.text,
+                                maxLength: 35,
                                 decoration: customInputDecoration(
-                                    labelText: "Kişi Başı Ücret",
-                                    hintText:
-                                        "En az 200 coin olabilir"),
+                                    labelText: dropdownValue,
+                                    hintText: dropdownValue ==
+                                            "Papara Numaranızı Girin"
+                                        ? "Örnek: 12345678910"
+                                        : "Örnek: TR90 **** **** **** **** **** **"),
                               ),
-                              const SizedBox(height: 12),
+                              const SizedBox(height: 5),
                               TextField(
                                 onChanged: (value) {
                                   try {
-                                    sayi = int.parse(value);
+                                    coindegeri = int.parse(value);
                                   } catch (e) {}
                                 },
                                 inputFormatters: [
@@ -208,9 +148,17 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                                 ],
                                 keyboardType: TextInputType.number,
                                 decoration: customInputDecoration(
-                                    labelText: "Görevi Kaç Kişi Yapacak",
-                                    hintText: "Örnek: 100"),
+                                    labelText:
+                                        "Çekmek İstediğiniz Coin Değerini Girin",
+                                    hintText:
+                                        "En az 5000 coin olabilir! (1000 coin = 1 TL)"),
                               ),
+                              const SizedBox(height: 12),
+                              const Center(
+                                  child: Text(
+                                "Minimum Ödeme Tutarı: 5000 Coin (5 TL)",
+                                style: TextStyle(color: Colors.black),
+                              )),
                               const SizedBox(height: 12),
                               Container(
                                 height: 46,
@@ -222,15 +170,13 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                                 ),
                                 child: InkWell(
                                   onTap: () async {
-                                    if (aciklama != null &&
-                                        baslik != null &&
-                                        sayi != null &&
-                                        fiyat != null) {
-                                      if (fiyat! < 200) {
+                                    if (hesapbilgisi != null &&
+                                        coindegeri != null) {
+                                      if (coindegeri! < 5000) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(const SnackBar(
                                                 content: Text(
-                                                    "Kişi başı ücret en az 200 coin olabilir!",
+                                                    "Minimum ödeme tutarı 5000 coin (5 TL) olmalıdır!",
                                                     style: TextStyle(
                                                         color: Colors.white)),
                                                 backgroundColor: Colors.red));
@@ -257,8 +203,7 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                                         if (userData['coin'] == null) {
                                           Navigator.of(context).pop();
                                         } else {
-                                          if (userData['coin'] <
-                                              fiyat! * sayi!) {
+                                          if (userData['coin'] < coindegeri) {
                                             Navigator.of(context).pop();
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(const SnackBar(
@@ -273,32 +218,42 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                                             final firestore =
                                                 FirebaseFirestore.instance;
                                             final tasksRef = firestore
-                                                .collection('TasksRequest');
+                                                .collection('PayRequest');
                                             final newTask = {
-                                              "baslik": baslik,
-                                              "aciklama": aciklama,
-                                              "kategori": dropdownValue,
-                                              "fiyat": fiyat,
-                                              "sayi": sayi
+                                              "user_uid": FirebaseAuth
+                                                  .instance.currentUser?.uid,
+                                              "odemeturu": dropdownValue,
+                                              "kactl": coindegeri! / 1000,
+                                              "hesapbilgisi": hesapbilgisi
                                             };
                                             await tasksRef.add(newTask);
                                             await DeleteCoin().deleteCoin(
-                                                UpdateCoinValue:
-                                                    fiyat! * sayi!);
+                                                UpdateCoinValue: coindegeri!);
                                             Navigator.of(context).pushReplacement(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        const GorevYayinlaPage()));
+                                                        const OdemeTalebiPage()));
 
                                             ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    content: Text(
-                                                        "İşlem başarılı! Göreviniz onaylandıktan sonra yayınlanacaktır. Aklınıza soru takılırsa Destek bölümüne yazabilirsiniz.",
+                                                .showSnackBar(SnackBar(
+                                              content: RichText(
+                                                  text: const TextSpan(
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                      children: [
+                                                    TextSpan(
+                                                        text:
+                                                            "Başarılı! Kontrolden sonra ödemeniz yapılacaktır. Sorunuz varsa Destek bölümüne yazabilirsiniz."),
+                                                    TextSpan(
+                                                        text:
+                                                            "\nOrtalama 1-12 saat sürer.",
                                                         style: TextStyle(
-                                                            color:
-                                                                Colors.white)),
-                                                    backgroundColor:
-                                                        Colors.green));
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300)),
+                                                  ])),
+                                              backgroundColor: Colors.green,
+                                            ));
                                           }
                                         }
                                       }
@@ -320,10 +275,12 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                                         ),
                                         children: <TextSpan>[
                                           const TextSpan(
-                                              text: 'Görevi Yayınla | Ücret: '),
-                                          TextSpan(
                                               text:
-                                                  "${fiyat != null && sayi != null ? fiyat! * sayi! : 0}",
+                                                  'Ödeme Talebini Onayla | Kazanç: '),
+                                          TextSpan(
+                                              text: coindegeri == null
+                                                  ? "0 TL"
+                                                  : "${(coindegeri! / 1000).toStringAsFixed(1)} TL",
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                         ],

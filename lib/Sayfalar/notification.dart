@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 
 class NotificationsPage extends StatefulWidget {

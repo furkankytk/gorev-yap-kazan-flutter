@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 Color arka_plan_renk = const Color.fromARGB(255, 62, 64, 80);
 Color arka_plan_renk_coin = const Color.fromARGB(10, 0, 0, 0);
