@@ -38,7 +38,7 @@ class _CoinYuklePageState extends State<CoinYuklePage> {
                     child: Container(
                         padding: const EdgeInsets.all(10),
                         margin:
-                            const EdgeInsets.only(left: 5, right: 5, top: 5),
+                            const EdgeInsets.only(left: 5, right: 5),
                         child: Column(
                           children: [
                             Container(

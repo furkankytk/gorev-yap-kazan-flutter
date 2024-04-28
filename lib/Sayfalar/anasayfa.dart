@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomAppBar-Drawer/custom.appbar-drawer.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomSnakeBar/customsnakebar.dart';
+import 'package:gorev_yap_kazan_flutter/Sayfalar/cekilis.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevler.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,9 +79,12 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         onTap: () {}),
                     anaSayfaSutunlar(
                         image: "assets/giveaway.png",
-                        text: "Çekilişler",
-                        footer: "Çekilişlere katılarak kazan",
-                        onTap: () {}),
+                        text: "Haftalık Çekilişler",
+                        footer: "Her hafta yenilenen çekilişlere katılarak kazan",
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const CekilisPage()));
+                        }),
                   ],
                 ),
               ),

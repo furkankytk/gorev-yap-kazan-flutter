@@ -9,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   Future<bool> signInWithGoogle() async {
+
     bool result = false;
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

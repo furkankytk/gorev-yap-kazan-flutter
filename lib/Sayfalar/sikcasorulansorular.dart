@@ -15,7 +15,7 @@ class _SikcaSorulanSorularPageState extends State<SikcaSorulanSorularPage> {
     {
       "soru": "Neden Bu Uygulama?",
       "cevap":
-          "1- Çeşitlilik:\nGörev yaparak para kazanma haricinde oyun oynayarak, çekilişe katılarak veya internette/web'te gezinerek de para kazanabilirsiniz. \n\n2- Kullanıcı dostu:\nUygulamamız kullanıcıların hiçbir sorun yaşamaması için özel olarak tasarlandı ve uygulamada aktif bir destek hizmetimiz bulunmaktadır.\n\n3- Fazla Zaman Harcamaz:\nUygulamayı vaktinizi çok harcamayacak şekilde tasarladık. Günün belirli saatlerinde uygulamaya giriş yapıp sandıkları açabilir, birkaç dakika süren görevleri yapabilir, çekilişlere katılabilirsiniz. Ekstradan oyun oynayarak ve tarayıcıda/web'te gezerek para kazanabilirsiniz."
+          "1- Çeşitlilik:\nGörev yaparak para kazanma haricinde oyun oynayarak, çekilişe katılarak veya internette/web'te gezinerek de para kazanabilirsiniz. \n\n2- Kullanıcı dostu:\nUygulamamız kullanıcıların hiçbir sorun yaşamaması için özel olarak tasarlandı ve uygulamada aktif bir destek hizmetimiz bulunmaktadır.\n\n3- Fazla zaman harcamaz:\nUygulamayı vaktinizi çok harcamayacak şekilde tasarladık. Günün belirli saatlerinde uygulamaya giriş yapıp sandıkları açabilir, birkaç dakika süren görevleri yapabilir, çekilişlere katılabilirsiniz. Ekstradan oyun oynayarak ve tarayıcıda/web'te gezerek para kazanabilirsiniz."
     },
     {
       "soru": "Ödemeler Nasıl Yapılıyor?",
@@ -26,6 +26,11 @@ class _SikcaSorulanSorularPageState extends State<SikcaSorulanSorularPage> {
       "soru": "Papara İle Ödeme Alabilir Miyim?",
       "cevap":
           "Evet, Papara veya Banka/Kredi Kartı hesaplarınızdan ödeme alabilirsiniz."
+    },
+    {
+      "soru": "1 TL Kaç Coin Ediyor?",
+      "cevap":
+          "1 TL = 1000 coin olarak belirlenmiştir. Bunun nedeni ise her çeşit ödüllendirmeyi ekleyebilmek. Bu sayede en küçükten en büyüğe kadar her türlü kazanç seçeneği ekleyebiliyoruz."
     },
     {
       "soru": "Görevi Yanlış/Eksik Yaparsam Ne Olur?",
@@ -41,6 +46,11 @@ class _SikcaSorulanSorularPageState extends State<SikcaSorulanSorularPage> {
       "soru": "Görev Yayınlamak İstiyorum. Ne Yapmalıyım?",
       "cevap":
           "Görev Yayınla sayfasından istediğiniz görevi verebilirsiniz."
+    },
+    {
+      "soru": "Haftalık Çekilişler Nasıl Çalışır?",
+      "cevap":
+          "Her hafta düzenli olarak çekilişleri yeniliyoruz ve süre sonunda kaç katılımcı varsa ona göre ödeme yapıyoruz. Her 1000 katılımcıda 12 kişiye 10.000 coin dağıtılıyor. Örnek vermek gerekirse eğer 5000 kişi katılırsa 60 kişiye 10.000 coin dağıtılacak. Eğer çekilişi kazanırsanız bildirim alacaksınız. Sürekli mail adresinizi takip etmenize gerek yok. Çekilişe katılmak ortalama 10-30 saniye sürüyor. Yani kısa günün kârı :)"
     },
   ];
 

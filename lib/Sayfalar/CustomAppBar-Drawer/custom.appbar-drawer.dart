@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +16,12 @@ import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevyayinla.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/odemetalebi.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/sikcasorulansorular.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.appbartitle})
       : preferredSize = const Size.fromHeight(kToolbarHeight);
-        final String appbartitle;
-
+  final String appbartitle;
 
   @override
   final Size preferredSize; // default is 56.0
@@ -185,8 +187,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
             title: const Text("Destek"),
             leading: const Icon(Icons.support_agent_outlined),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const DestekPage()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const DestekPage()));
             },
           ),
           ListTile(
@@ -219,6 +221,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const AdminPortal()));
             },
+          ),
+          ListTile(
+            title: const Text("UUİD"),
+            leading: const Icon(Icons.shopping_bag_outlined),
+            onTap: () {},
           ),
         ],
       ),
