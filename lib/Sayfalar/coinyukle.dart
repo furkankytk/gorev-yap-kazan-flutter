@@ -27,6 +27,7 @@ class _CoinYuklePageState extends State<CoinYuklePage> {
           children: [
             Expanded(
               child: Container(
+                margin: const EdgeInsets.only(top: 10),
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                       color: Colors.white,

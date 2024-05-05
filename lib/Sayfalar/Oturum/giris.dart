@@ -5,6 +5,7 @@ import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/anasayfa.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/Oturum/Auth/auth.service.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevler.dart';
+import 'package:gorev_yap_kazan_flutter/network_check.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,6 +15,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late ConnectivityService _connectivityService;
+
+  @override
+  void initState() {
+    super.initState();
+    _connectivityService = ConnectivityService();
+    _connectivityService.startListening(context);
+  }
+
+  @override
+  void dispose() {
+    _connectivityService.stopListening();
+    super.dispose();
+  }
   var isAdmin = false;
 
   checkIsAdmin() async {
@@ -26,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
         isAdmin = false;
         });
         }
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {

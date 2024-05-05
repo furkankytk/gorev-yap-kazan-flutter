@@ -29,7 +29,7 @@ class _CekilisPageState extends State<CekilisPage> {
           children: [
             Container(
               height: 120,
-              margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   color: Colors.yellow.shade900,
                   borderRadius: BorderRadius.circular(30)),

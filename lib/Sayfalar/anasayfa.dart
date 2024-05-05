@@ -5,6 +5,7 @@ import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomAppBar-Drawer/custom.appb
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomSnakeBar/customsnakebar.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/cekilis.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevler.dart';
+import 'package:gorev_yap_kazan_flutter/network_check.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,21 @@ class AnaSayfa extends StatefulWidget {
 }
 
 class _AnaSayfaState extends State<AnaSayfa> {
+  late ConnectivityService _connectivityService;
+
+  @override
+  void initState() {
+    super.initState();
+    _connectivityService = ConnectivityService();
+    _connectivityService.startListening(context);
+  }
+
+  @override
+  void dispose() {
+    _connectivityService.stopListening();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

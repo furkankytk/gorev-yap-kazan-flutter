@@ -30,7 +30,7 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
           children: [
             Container(
               height: 100,
-              margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   color: Colors.orange.shade700,
                   borderRadius: BorderRadius.circular(30)),

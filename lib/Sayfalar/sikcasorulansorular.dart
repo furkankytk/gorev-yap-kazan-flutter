@@ -68,7 +68,7 @@ class _SikcaSorulanSorularPageState extends State<SikcaSorulanSorularPage> {
         itemBuilder: (context, index) {
           return Container(
             padding: const EdgeInsets.all(5),
-            margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+            margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(30),

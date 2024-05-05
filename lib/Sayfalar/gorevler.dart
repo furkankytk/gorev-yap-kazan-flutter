@@ -24,7 +24,7 @@ class _GorevlerPageState extends State<GorevlerPage> {
           children: [
             Container(
               height: 100,
-              margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   color: bilgi_karti_renk2,
                   borderRadius: BorderRadius.circular(30)),

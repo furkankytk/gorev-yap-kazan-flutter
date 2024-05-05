@@ -96,7 +96,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 } else {
                   return const Center(
                       child: Text(
-                          "Beklenmedik bir hata. Lütfen yetkililere ulaşın."));
+                          "Beklenmedik bir hata."));
                 }
               },
             ),

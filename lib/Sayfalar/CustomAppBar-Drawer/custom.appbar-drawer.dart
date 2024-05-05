@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +14,6 @@ import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevyayinla.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/odemetalebi.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/sikcasorulansorular.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.appbartitle})
