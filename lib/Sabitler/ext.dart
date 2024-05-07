@@ -16,17 +16,6 @@ alt_yazi(BuildContext context, String mesaj, {int tur = 0}) {
                     ));
 }
 
-// bool oturum_kontol() {
-//   GetStorage box = GetStorage();
-//   var sonuc = box.read("kul");
-// 
-//   if (sonuc==null || sonuc.toString().length < 20) {
-//     return false;
-//   } else {
-//     return true;
-//   }
-// }
-
 class ButonSabitler {
   EdgeInsets paddingSabit = const EdgeInsets.only(top: 10, bottom: 10);
 }

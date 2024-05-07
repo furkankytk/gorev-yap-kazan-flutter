@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomAppBar-Drawer/custom.appbar-drawer.dart';
 
@@ -21,11 +20,7 @@ class _DestekPageState extends State<DestekPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: arka_plan_renk,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          title: const Text('Destek'),
-        ),
+        appBar: const CustomAppBar(appbartitle: "Destek"),
         drawer: const CustomDrawer(),
         body: Column(
           children: [

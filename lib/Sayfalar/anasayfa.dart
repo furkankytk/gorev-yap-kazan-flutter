@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomAppBar-Drawer/custom.appbar-drawer.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomSnakeBar/customsnakebar.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/cekilis.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevler.dart';
+import 'package:gorev_yap_kazan_flutter/Servis/google_ads.dart';
 import 'package:gorev_yap_kazan_flutter/network_check.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,9 +20,13 @@ class AnaSayfa extends StatefulWidget {
 
 class _AnaSayfaState extends State<AnaSayfa> {
   late ConnectivityService _connectivityService;
-
+  final GoogleAds _googleAds = GoogleAds();
   @override
   void initState() {
+    _googleAds.loadBannerAd(
+      adLoaded: () {},
+    );
+    _googleAds.showInterstitialAd();
     super.initState();
     _connectivityService = ConnectivityService();
     _connectivityService.startListening(context);
@@ -86,7 +92,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         image: "assets/game.png",
                         text: "Oyun Oyna Kazan",
                         footer: "Oyun oynayarak hem eğlen hem de kazan",
-                        onTap: () {}),
+                        onTap: () {
+                          // SnackBar "Çok yakında sizlerle..."
+                        }),
                     anaSayfaSutunlar(
                         image: "assets/browser.png",
                         text: "Web'te Kazan",
@@ -96,7 +104,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     anaSayfaSutunlar(
                         image: "assets/giveaway.png",
                         text: "Haftalık Çekilişler",
-                        footer: "Her hafta yenilenen çekilişlere katılarak kazan",
+                        footer:
+                            "Her hafta yenilenen çekilişlere katılarak kazan",
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const CekilisPage()));
@@ -104,7 +113,14 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ],
                 ),
               ),
-            )
+            ),
+            if (_googleAds.bannerAd != null)
+              Container(
+                decoration: const BoxDecoration(color: Colors.white),
+                width: 468,
+                height: 60,
+                child: AdWidget(ad: _googleAds.bannerAd!),
+              ),
           ],
         ),
       ),

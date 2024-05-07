@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gorev_yap_kazan_flutter/Admin/adminportal.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
-import 'package:gorev_yap_kazan_flutter/Sayfalar/AwesomeDialogs/awesomeDialogs.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomSnakeBar/customsnakebar.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/Oturum/Auth/auth.service.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/anasayfa.dart';
@@ -13,6 +12,7 @@ import 'package:gorev_yap_kazan_flutter/Sayfalar/notification.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevyayinla.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/odemetalebi.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/sikcasorulansorular.dart';
+import 'package:gorev_yap_kazan_flutter/main.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -208,7 +208,32 @@ class _CustomDrawerState extends State<CustomDrawer> {
             title: const Text("Çıkış Yap"),
             leading: const Icon(Icons.logout_outlined),
             onTap: () {
-              cikisYapButon(context);
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("İPTAL",
+                                  style: TextStyle(color: Colors.green))),
+                          TextButton(
+                              onPressed: () async {
+                                await FirebaseAuth.instance.signOut();
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MyOldApp()));
+                              },
+                              child: const Text("ÇIKIŞ YAP",
+                                  style: TextStyle(color: Colors.red))),
+                        ],
+                        title: const Text("DİKKAT!"),
+                        contentPadding: const EdgeInsets.all(20),
+                        content: const Text(
+                            "Çıkış yapmak istediğinize emin misiniz?"),
+                      ));
             },
           ),
           ListTile(
@@ -218,11 +243,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const AdminPortal()));
             },
-          ),
-          ListTile(
-            title: const Text("UUİD"),
-            leading: const Icon(Icons.shopping_bag_outlined),
-            onTap: () {},
           ),
         ],
       ),
