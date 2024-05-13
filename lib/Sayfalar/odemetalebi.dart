@@ -291,7 +291,7 @@ class _OdemeTalebiPageState extends State<OdemeTalebiPage> {
                               )
                             ],
                           )),
-                    )))
+                    ))),
           ],
         ),
       ),

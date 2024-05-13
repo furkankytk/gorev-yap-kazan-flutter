@@ -13,6 +13,7 @@ class GorevlerPage extends StatefulWidget {
 }
 
 class _GorevlerPageState extends State<GorevlerPage> {
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -190,7 +191,7 @@ class _GorevlerPageState extends State<GorevlerPage> {
                       }
                     }),
               ),
-            )
+            ),
           ],
         ),
       ),

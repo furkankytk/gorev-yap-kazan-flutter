@@ -44,8 +44,7 @@ class _SikcaSorulanSorularPageState extends State<SikcaSorulanSorularPage> {
     },
     {
       "soru": "Görev Yayınlamak İstiyorum. Ne Yapmalıyım?",
-      "cevap":
-          "Görev Yayınla sayfasından istediğiniz görevi verebilirsiniz."
+      "cevap": "Görev Yayınla sayfasından istediğiniz görevi verebilirsiniz."
     },
     {
       "soru": "Haftalık Çekilişler Nasıl Çalışır?",
@@ -63,34 +62,39 @@ class _SikcaSorulanSorularPageState extends State<SikcaSorulanSorularPage> {
         elevation: 0,
         title: const Text("Sıkça Sorulan Sorular"),
       ),
-      body: ListView.builder(
-        itemCount: sssVerileri.length,
-        itemBuilder: (context, index) {
-          return Container(
-            padding: const EdgeInsets.all(5),
-            margin: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: ExpansionTile(
-              title: Text(
-                sssVerileri[index]["soru"]!,
-                style: TextStyle(color: Colors.black),
-              ),
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    sssVerileri[index]["cevap"]!,
-                    style: TextStyle(color: Colors.black),
-                  ),
+      body: Column(
+        children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: sssVerileri.length,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+                child: ExpansionTile(
+                  title: Text(
+                    sssVerileri[index]["soru"]!,
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        sssVerileri[index]["cevap"]!,
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ]),
     );
   }
 }

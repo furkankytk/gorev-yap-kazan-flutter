@@ -258,7 +258,7 @@ class _GorevDetayPageState extends State<GorevDetayPage> {
                                 fontWeight: FontWeight.w900, fontSize: 20))),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 
 class NotificationsPage extends StatefulWidget {
-  const NotificationsPage({Key? key}) : super(key: key);
+  const NotificationsPage({super.key});
 
   @override
   State<NotificationsPage> createState() => _NotificationsPageState();

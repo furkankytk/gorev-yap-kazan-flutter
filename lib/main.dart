@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/Oturum/Auth/auth.service.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/anasayfa.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gorev_yap_kazan_flutter/Servis/google_ads.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'Sayfalar/Oturum/giris.dart';
@@ -17,7 +18,8 @@ main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => UserProvider()),
-      ChangeNotifierProvider(create: (context) => UpdateUser())
+      ChangeNotifierProvider(create: (context) => UpdateUser()),
+      ChangeNotifierProvider(create: (context) => GoogleAds()),
     ],
     child: const MyOldApp(),
   ));
@@ -31,6 +33,7 @@ class MyOldApp extends StatefulWidget {
 }
 
 class _MyOldAppState extends State<MyOldApp> {
+  final GoogleAds _googleAds = GoogleAds();
   var isLogin = false;
 
   checkIfLogin() async {
@@ -39,18 +42,20 @@ class _MyOldAppState extends State<MyOldApp> {
         setState(() {
           isLogin = false;
         });
-        print('Kullanıcının oturumu şuanda kapalı!');
       } else {
         setState(() {
           isLogin = true;
         });
-        print('Kullanıcının oturumu açık!');
       }
     });
   }
 
   @override
   void initState() {
+    _googleAds.loadBannerAd(
+      adLoaded: () {},
+    );
+    _googleAds.showInterstitialAd();
     checkIfLogin();
     super.initState();
   }
@@ -58,6 +63,23 @@ class _MyOldAppState extends State<MyOldApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        return Column(
+          children: [
+            Expanded(child: child!),
+            // clear the unused code
+            if (_googleAds.bannerAd != null)
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white
+                ),
+                width: 468,
+                height: 60,
+                child: AdWidget(ad: _googleAds.bannerAd!),
+              ),
+          ],
+        );
+      },
       title: 'Görevle Kazan',
       theme: ThemeData(
         colorScheme: const ColorScheme.dark(),

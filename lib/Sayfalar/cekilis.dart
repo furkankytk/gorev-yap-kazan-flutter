@@ -97,165 +97,182 @@ class _CekilisPageState extends State<CekilisPage> {
                                   FirebaseAuth.instance.currentUser?.uid)) {
                                 return InkWell(
                                   onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text('ÇEKİLİŞ'),
-                                          content: RichText(
-                                              text: TextSpan(
-                                                  style: const TextStyle(
-                                                      color: Colors.white),
-                                                  children: [
-                                                const TextSpan(text: "1) "),
-                                                const TextSpan(
-                                                    text:
-                                                        "Çekiliş Sayfasına Git ",
-                                                    style: TextStyle(
-                                                        color: Colors.green)),
-                                                const TextSpan(
-                                                    text: "tuşuna bas,\n\n\n"),
-                                                const TextSpan(
-                                                    text:
-                                                        "2) Açılan pencerede 'Kullanıcı ID' değerine şunu yaz: "),
-                                                TextSpan(
-                                                    recognizer:
-                                                        TapGestureRecognizer()
-                                                          ..onTap = () async {
-                                                            await Clipboard.setData(
-                                                                ClipboardData(
-                                                                    text: FirebaseAuth
-                                                                        .instance
-                                                                        .currentUser!
-                                                                        .uid));
-                                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                                                content: Text(
-                                                                    "Başarıyla kopyalandı!",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white)),
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .green));
-                                                          },
-                                                    text:
-                                                        "${FirebaseAuth.instance.currentUser!.uid} ",
-                                                    style: const TextStyle(
-                                                        color: Colors.blue)),
-                                                TextSpan(
-                                                    recognizer:
-                                                        TapGestureRecognizer()
-                                                          ..onTap = () async {
-                                                            await Clipboard.setData(
-                                                                ClipboardData(
-                                                                    text: FirebaseAuth
-                                                                        .instance
-                                                                        .currentUser!
-                                                                        .uid));
-                                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                                                content: Text(
-                                                                    "Başarıyla kopyalandı!",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white)),
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .green));
-                                                          },
-                                                    text:
-                                                        "(Kopyalamak için uzun bas) ve çekilişe katıl,\n\n\n"),
-                                                const TextSpan(
-                                                    text:
-                                                        "3) Çekilişe katıldıktan sonra "),
-                                                const TextSpan(
-                                                    text:
-                                                        "Çekilişi Tamamladım ",
-                                                    style: TextStyle(
-                                                        color: Colors.orange)),
-                                                const TextSpan(
-                                                    text: "tuşuna bas."),
-                                              ])),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () async {
-                                                final url = Uri.parse(snapshot
-                                                    .data!.docs[index]["link"]);
-                                                await launchUrl(url,
-                                                    mode: LaunchMode
-                                                        .externalApplication);
-                                              },
-                                              child: const Text(
-                                                  'Çekiliş Sayfasına Git',
-                                                  style: TextStyle(
-                                                      color: Colors.green)),
-                                            ),
-                                            TextButton(
-                                              onPressed: () async {
-                                                showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return AlertDialog(
-                                                        content: const Text(
-                                                            'Çekilişe katıldığınızı onaylıyor musunuz?'),
-                                                        actions: <Widget>[
-                                                          TextButton(
-                                                            onPressed: () {
-                                                              YapanlarEkleme()
-                                                                  .updateYapanlar(
-                                                                      cekilisId: snapshot
-                                                                          .data!
-                                                                          .docs[
-                                                                              index]
-                                                                          .id);
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pushReplacement(
-                                                                      MaterialPageRoute(
-                                                                          builder: (context) =>
-                                                                              const CekilisPage()));
-                                                              ScaffoldMessenger
-                                                                      .of(
-                                                                          context)
-                                                                  .showSnackBar(
-                                                                      const SnackBar(
-                                                                content: Text(
-                                                                    "Çekilişe başarıyla katıldınız", style: TextStyle(color: Colors.white)),
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .green,
-                                                              ));
-                                                            },
-                                                            child: const Text(
-                                                                'Eminim, onaylıyorum',
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) => SizedBox(
+                                              child: Center(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(15),
+                                                  child: Column(
+                                                    children: [
+                                                      const Text(
+                                                          "ÇEKİLİŞE KATIL",
+                                                          style: TextStyle(
+                                                              fontSize: 25,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                   
+                                                      const Divider(),
+                                                      const SizedBox(height: 20),
+                                                      RichText(
+                                                          text: TextSpan(
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                              children: [
+                                                            const TextSpan(
+                                                                text: "1) "),
+                                                            const TextSpan(
+                                                                text:
+                                                                    "Çekiliş Sayfasına Git ",
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .green)),
-                                                          ),
-                                                          TextButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: const Text(
-                                                                'İptal',
+                                                            const TextSpan(
+                                                                text:
+                                                                    "tuşuna bas,\n\n\n"),
+                                                            const TextSpan(
+                                                                text:
+                                                                    "2) Açılan pencerede 'Kullanıcı ID' değerine şunu yaz: "),
+                                                            TextSpan(
+                                                                recognizer:
+                                                                    TapGestureRecognizer()
+                                                                      ..onTap =
+                                                                          () async {
+                                                                        await Clipboard.setData(ClipboardData(
+                                                                            text:
+                                                                                FirebaseAuth.instance.currentUser!.uid));
+                                                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                                                            content:
+                                                                                Text("Başarıyla kopyalandı!", style: TextStyle(color: Colors.white)),
+                                                                            backgroundColor: Colors.green));
+                                                                      },
+                                                                text:
+                                                                    "${FirebaseAuth.instance.currentUser!.uid} ",
+                                                                style: const TextStyle(
+                                                                    color: Colors
+                                                                        .blue)),
+                                                            TextSpan(
+                                                                recognizer:
+                                                                    TapGestureRecognizer()
+                                                                      ..onTap =
+                                                                          () async {
+                                                                        await Clipboard.setData(ClipboardData(
+                                                                            text:
+                                                                                FirebaseAuth.instance.currentUser!.uid));
+                                                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                                                            content:
+                                                                                Text("Başarıyla kopyalandı!", style: TextStyle(color: Colors.white)),
+                                                                            backgroundColor: Colors.green));
+                                                                      },
+                                                                text:
+                                                                    "(Kopyalamak için uzun bas) ve çekilişe katıl,\n\n\n"),
+                                                            const TextSpan(
+                                                                text:
+                                                                    "3) Çekilişe katıldıktan sonra "),
+                                                            const TextSpan(
+                                                                text:
+                                                                    "Çekilişi Tamamladım ",
                                                                 style: TextStyle(
                                                                     color: Colors
-                                                                        .red)),
+                                                                        .orange)),
+                                                            const TextSpan(
+                                                                text:
+                                                                    "tuşuna bas."),
+                                                          ])),
+                                                      const SizedBox(height: 30),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Container(
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.green,
+                                                              borderRadius: BorderRadius.circular(30)
+                                                            ),
+                                                            child: TextButton(
+                                                              onPressed:
+                                                                  () async {
+                                                                final url = Uri
+                                                                    .parse(snapshot
+                                                                            .data!
+                                                                            .docs[index]
+                                                                        ["link"]);
+                                                                await launchUrl(
+                                                                    url,
+                                                                    mode: LaunchMode
+                                                                        .externalApplication);
+                                                              },
+                                                              child: const Text(
+                                                                  'Çekiliş Sayfasına Git',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.orange,
+                                                              borderRadius: BorderRadius.circular(30)
+                                                            ),
+                                                            child: TextButton(
+                                                              onPressed:
+                                                                  () async {
+                                                                showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (BuildContext
+                                                                            context) {
+                                                                      return AlertDialog(
+                                                                        content:
+                                                                            const Text(
+                                                                                'Çekilişe katıldığınızı onaylıyor musunuz?'),
+                                                                        actions: <Widget>[
+                                                                          TextButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              YapanlarEkleme().updateYapanlar(cekilisId: snapshot.data!.docs[index].id);
+                                                                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const CekilisPage()));
+                                                                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                                                                content: Text("Çekilişe başarıyla katıldınız", style: TextStyle(color: Colors.white)),
+                                                                                backgroundColor: Colors.green,
+                                                                              ));
+                                                                            },
+                                                                            child: const Text(
+                                                                                'Eminim, onaylıyorum',
+                                                                                style: TextStyle(color: Colors.green)),
+                                                                          ),
+                                                                          TextButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            child: const Text(
+                                                                                'İptal',
+                                                                                style: TextStyle(color: Colors.red)),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    });
+                                                              },
+                                                              child: const Text(
+                                                                  'Çekilişi Tamamladım',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ),
                                                           ),
                                                         ],
-                                                      );
-                                                    });
-                                              },
-                                              child: const Text(
-                                                  'Çekilişi Tamamladım',
-                                                  style: TextStyle(
-                                                      color: Colors.orange)),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ));
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(10),
@@ -331,7 +348,7 @@ class _CekilisPageState extends State<CekilisPage> {
                       }
                     }),
               ),
-            )
+            ),
           ],
         ),
       ),

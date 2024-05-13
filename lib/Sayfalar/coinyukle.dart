@@ -201,7 +201,7 @@ class _CoinYuklePageState extends State<CoinYuklePage> {
                           ],
                         )),
                   )),
-            )
+            ),
           ],
         ),
       ),

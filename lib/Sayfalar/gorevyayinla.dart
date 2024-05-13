@@ -334,7 +334,7 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                               )
                             ],
                           )),
-                    )))
+                    ))),
           ],
         ),
       ),

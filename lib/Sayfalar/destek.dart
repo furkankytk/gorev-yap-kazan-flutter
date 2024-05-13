@@ -172,7 +172,7 @@ class _DestekPageState extends State<DestekPage> {
                               )
                             ],
                           )),
-                    )))
+                    ))),
           ],
         ),
       ),
