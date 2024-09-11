@@ -1,12 +1,16 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomAppBar-Drawer/custom.appbar-drawer.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomSnakeBar/customsnakebar.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/cekilis.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/gorevler.dart';
+import 'package:gorev_yap_kazan_flutter/Servis/google_ads.dart';
 import 'package:gorev_yap_kazan_flutter/network_check.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AnaSayfa extends StatefulWidget {
@@ -20,6 +24,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
   late ConnectivityService _connectivityService;
   @override
   void initState() {
+    GoogleAds().loadRewardedAd();
     super.initState();
     _connectivityService = ConnectivityService();
     _connectivityService.startListening(context);
@@ -86,14 +91,30 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         text: "Oyun Oyna Kazan",
                         footer: "Oyun oynayarak hem eğlen hem de kazan",
                         onTap: () {
-                          // SnackBar "Çok yakında sizlerle..."
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Çok yakında sizlerle...",
+                                      style: TextStyle(color: Colors.white)),
+                                  backgroundColor: Colors.orange));
                         }),
                     anaSayfaSutunlar(
                         image: "assets/browser.png",
                         text: "Web'te Kazan",
                         footer:
                             "Tarayıcıda istersen video izle istersen de haber oku. Sınırsız kazanç",
-                        onTap: () {}),
+                        onTap: () {
+                          if (Provider.of<GoogleAds>(context, listen: false).rewardedAd !=
+                              null) {
+                            Provider.of<GoogleAds>(context, listen: false).rewardedAd!.show(
+                              onUserEarnedReward:
+                                  (AdWithoutView ad, RewardItem reward) {
+                                print('Kullanıcı ödül kazandı: ${reward.amount}');
+                              },
+                            );
+                          } else {
+                            print('Reklam henüz yüklenmedi');
+                          }
+                        }),
                     anaSayfaSutunlar(
                         image: "assets/giveaway.png",
                         text: "Haftalık Çekilişler",
@@ -220,9 +241,12 @@ class _MyWidgetState extends State<MyWidget> {
                             await _isDailyRewardAvailable(now);
                         await _saveLastLoginDate(now);
                         if (isRewardAvailable) {
+                          // GoogleAds().denemeShowRewardedAd();
+                          int randomNumberGunlukSandik =
+                              200 + Random().nextInt(101);
                           ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(
                               text:
-                                  "Günlük sandıktan 300 coin kazandınız. Yarın tekrardan açabilirsiniz.",
+                                  "Günlük sandıktan $randomNumberGunlukSandik coin kazandınız. Yarın tekrardan açabilirsiniz.",
                               deger: 1));
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(
@@ -260,9 +284,11 @@ class _MyWidgetState extends State<MyWidget> {
                               'lastLoginTime', DateTime.now().toString());
 
                           lastLoginTime = DateTime.now();
+                          int randomNumberSaatlikSandik =
+                              100 + Random().nextInt(51);
                           ScaffoldMessenger.of(context).showSnackBar(CustomSnackbar(
                               text:
-                                  "Saatlik sandıktan 300 coin kazandınız, 1 saat sonra tekrardan açabilirsiniz.",
+                                  "Saatlik sandıktan $randomNumberSaatlikSandik coin kazandınız, 1 saat sonra tekrardan açabilirsiniz.",
                               deger: 1));
                           canClaimReward = false;
                         } else {

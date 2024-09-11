@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomAppBar-Drawer/custom.appbar-drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -99,6 +100,8 @@ class _CekilisPageState extends State<CekilisPage> {
                                   onTap: () {
                                     showModalBottomSheet(
                                         context: context,
+                                        barrierColor:
+                                            Colors.black.withOpacity(0.8),
                                         builder: (context) => SizedBox(
                                               child: Center(
                                                 child: Padding(
@@ -113,9 +116,9 @@ class _CekilisPageState extends State<CekilisPage> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold)),
-                                                   
                                                       const Divider(),
-                                                      const SizedBox(height: 20),
+                                                      const SizedBox(
+                                                          height: 20),
                                                       RichText(
                                                           text: TextSpan(
                                                               style: const TextStyle(
@@ -144,10 +147,23 @@ class _CekilisPageState extends State<CekilisPage> {
                                                                         await Clipboard.setData(ClipboardData(
                                                                             text:
                                                                                 FirebaseAuth.instance.currentUser!.uid));
-                                                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                                                            content:
-                                                                                Text("Başarıyla kopyalandı!", style: TextStyle(color: Colors.white)),
-                                                                            backgroundColor: Colors.green));
+                                                                        Fluttertoast
+                                                                            .showToast(
+                                                                          msg:
+                                                                              'Başarıyla kopyalandı',
+                                                                          toastLength:
+                                                                              Toast.LENGTH_SHORT,
+                                                                          gravity:
+                                                                              ToastGravity.BOTTOM,
+                                                                          backgroundColor:
+                                                                              Colors.black,
+                                                                          textColor:
+                                                                              Colors.white,
+                                                                        );
+                                                                        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                                                        //     content:
+                                                                        //         Text("Başarıyla kopyalandı!", style: TextStyle(color: Colors.white)),
+                                                                        //     backgroundColor: Colors.green));
                                                                       },
                                                                 text:
                                                                     "${FirebaseAuth.instance.currentUser!.uid} ",
@@ -182,7 +198,8 @@ class _CekilisPageState extends State<CekilisPage> {
                                                                 text:
                                                                     "tuşuna bas."),
                                                           ])),
-                                                      const SizedBox(height: 30),
+                                                      const SizedBox(
+                                                          height: 30),
                                                       Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
@@ -190,9 +207,12 @@ class _CekilisPageState extends State<CekilisPage> {
                                                         children: [
                                                           Container(
                                                             decoration: BoxDecoration(
-                                                              color: Colors.green,
-                                                              borderRadius: BorderRadius.circular(30)
-                                                            ),
+                                                                color: Colors
+                                                                    .green,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30)),
                                                             child: TextButton(
                                                               onPressed:
                                                                   () async {
@@ -200,7 +220,8 @@ class _CekilisPageState extends State<CekilisPage> {
                                                                     .parse(snapshot
                                                                             .data!
                                                                             .docs[index]
-                                                                        ["link"]);
+                                                                        [
+                                                                        "link"]);
                                                                 await launchUrl(
                                                                     url,
                                                                     mode: LaunchMode
@@ -215,9 +236,12 @@ class _CekilisPageState extends State<CekilisPage> {
                                                           ),
                                                           Container(
                                                             decoration: BoxDecoration(
-                                                              color: Colors.orange,
-                                                              borderRadius: BorderRadius.circular(30)
-                                                            ),
+                                                                color: Colors
+                                                                    .orange,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30)),
                                                             child: TextButton(
                                                               onPressed:
                                                                   () async {
@@ -229,8 +253,7 @@ class _CekilisPageState extends State<CekilisPage> {
                                                                             context) {
                                                                       return AlertDialog(
                                                                         content:
-                                                                            const Text(
-                                                                                'Çekilişe katıldığınızı onaylıyor musunuz?'),
+                                                                            const Text('Çekilişe katıldığınızı onaylıyor musunuz?'),
                                                                         actions: <Widget>[
                                                                           TextButton(
                                                                             onPressed:
@@ -242,18 +265,16 @@ class _CekilisPageState extends State<CekilisPage> {
                                                                                 backgroundColor: Colors.green,
                                                                               ));
                                                                             },
-                                                                            child: const Text(
-                                                                                'Eminim, onaylıyorum',
-                                                                                style: TextStyle(color: Colors.green)),
+                                                                            child:
+                                                                                const Text('Eminim, onaylıyorum', style: TextStyle(color: Colors.green)),
                                                                           ),
                                                                           TextButton(
                                                                             onPressed:
                                                                                 () {
                                                                               Navigator.pop(context);
                                                                             },
-                                                                            child: const Text(
-                                                                                'İptal',
-                                                                                style: TextStyle(color: Colors.red)),
+                                                                            child:
+                                                                                const Text('İptal', style: TextStyle(color: Colors.red)),
                                                                           ),
                                                                         ],
                                                                       );

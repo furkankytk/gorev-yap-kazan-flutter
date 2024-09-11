@@ -67,12 +67,9 @@ class _MyOldAppState extends State<MyOldApp> {
         return Column(
           children: [
             Expanded(child: child!),
-            // clear the unused code
             if (_googleAds.bannerAd != null)
               Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white
-                ),
+                decoration: const BoxDecoration(color: Colors.white),
                 width: 468,
                 height: 60,
                 child: AdWidget(ad: _googleAds.bannerAd!),

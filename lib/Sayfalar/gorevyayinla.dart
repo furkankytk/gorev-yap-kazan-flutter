@@ -194,7 +194,7 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                                 decoration: customInputDecoration(
                                     labelText: "Kişi Başı Ücret",
                                     hintText:
-                                        "En az 200 coin olabilir"),
+                                        "En az 300 coin olabilir"),
                               ),
                               const SizedBox(height: 12),
                               TextField(
@@ -226,11 +226,11 @@ class _GorevYayinlaPageState extends State<GorevYayinlaPage> {
                                         baslik != null &&
                                         sayi != null &&
                                         fiyat != null) {
-                                      if (fiyat! < 200) {
+                                      if (fiyat! < 300) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(const SnackBar(
                                                 content: Text(
-                                                    "Kişi başı ücret en az 200 coin olabilir!",
+                                                    "Kişi başı ücret en az 300 coin olabilir!",
                                                     style: TextStyle(
                                                         color: Colors.white)),
                                                 backgroundColor: Colors.red));

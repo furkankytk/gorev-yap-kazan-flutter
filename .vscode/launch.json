@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
     
+    
         {
             "name": "gorev_yap_kazan_flutter",
             "request": "launch",

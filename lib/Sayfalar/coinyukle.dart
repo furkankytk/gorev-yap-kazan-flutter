@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gorev_yap_kazan_flutter/Sabitler/ext.dart';
 import 'package:gorev_yap_kazan_flutter/Sayfalar/CustomAppBar-Drawer/custom.appbar-drawer.dart';
 
@@ -27,7 +28,7 @@ class _CoinYuklePageState extends State<CoinYuklePage> {
           children: [
             Expanded(
               child: Container(
-                margin: const EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                       color: Colors.white,
@@ -38,8 +39,7 @@ class _CoinYuklePageState extends State<CoinYuklePage> {
                   child: SingleChildScrollView(
                     child: Container(
                         padding: const EdgeInsets.all(10),
-                        margin:
-                            const EdgeInsets.only(left: 5, right: 5),
+                        margin: const EdgeInsets.only(left: 5, right: 5),
                         child: Column(
                           children: [
                             Container(
@@ -97,15 +97,14 @@ class _CoinYuklePageState extends State<CoinYuklePage> {
                                                             .instance
                                                             .currentUser!
                                                             .uid));
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(const SnackBar(
-                                                        content: Text(
-                                                            "Başarıyla kopyalandı!",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white)),
-                                                        backgroundColor:
-                                                            Colors.green));
+                                                Fluttertoast.showToast(
+                                                  msg: 'Başarıyla kopyalandı',
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  backgroundColor: Colors.black,
+                                                  textColor: Colors.white,
+                                                );
                                               },
                                             text:
                                                 "3) Para transferi yaparken açıklama kısmına şu kodu yazın: ${FirebaseAuth.instance.currentUser?.uid} (Kopyalamak için uzun basın)\n\n",
